@@ -34,11 +34,13 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         ImageView ivAvatar  = (ImageView)convertView.findViewById(R.id.ivAvatar);
         TextView tvCreatedAt = (TextView)convertView.findViewById(R.id.tvCreatedAt);
         tvCaption.setUsernameComment(photo.username, photo.caption);
-        tvCreatedAt.setText(DateUtils.getRelativeTimeSpanString(photo.created_at*1000,
-                System.currentTimeMillis(),
-                DateUtils.MINUTE_IN_MILLIS,
-                DateUtils.FORMAT_ABBREV_RELATIVE
-        ));
+        tvCreatedAt.setText(
+                ((String) DateUtils.getRelativeTimeSpanString(photo.created_at * 1000,
+                        System.currentTimeMillis(),
+                        DateUtils.MINUTE_IN_MILLIS,
+                        DateUtils.FORMAT_ABBREV_RELATIVE
+                )).replaceFirst("(\\d+) (\\S).*", "$1$2")
+        );
 //        Spannable username = new SpannableString(photo.username);
 //        username.setSpan(new ForegroundColorSpan(Color.BLUE),0,photo.username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 //        if(photo.caption!=null){
