@@ -49,4 +49,14 @@ public class InstagramPhoto {
             return null;
         }
     }
+    public static InstagramPhoto fake(){
+        return new InstagramPhoto(
+                "username",
+                "caption http://placekitten.com/460/460",
+                "http://placekitten.com/1080/1080",
+                1080,
+                5,
+                "http://placekitten.com/160/160",
+                10000);
+    }
 }

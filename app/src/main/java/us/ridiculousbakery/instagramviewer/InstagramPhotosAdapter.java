@@ -1,6 +1,10 @@
 package us.ridiculousbakery.instagramviewer;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +27,25 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         InstagramPhoto photo = getItem(position);
-        View v;
         if (convertView==null){
            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
         }
         TextView tvCaption = (TextView)convertView.findViewById(R.id.tvCaption);
         TextView tvUsername = (TextView)convertView.findViewById(R.id.tvUsername);
+        TextView tvLikes = (TextView)convertView.findViewById(R.id.tvLikes);
         ImageView ivPhoto = (ImageView)convertView.findViewById(R.id.ivPhoto);
         ImageView ivAvatar  = (ImageView)convertView.findViewById(R.id.ivAvatar);
-        tvCaption.setText( (photo.caption==null) ? "": photo.caption);
-        tvUsername.setText(photo.username);
-
+        Spannable username = new SpannableString(photo.username);
+        username.setSpan(new ForegroundColorSpan(Color.BLUE),0,photo.username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if(photo.caption!=null){
+            tvCaption.setText(username);
+            tvCaption.append(" "+photo.caption);
+        }else{
+            tvCaption.setText("");
+        }
+//        tvCaption.setText( (photo.caption==null) ? "": photo.username + " "+ photo.caption);
+        tvUsername.setText(username);
+        tvLikes.setText(((Integer)photo.likesCount).toString()+" likes");
         ivPhoto.setImageResource(0);
         ivAvatar.setImageResource(0);
         Picasso.with(getContext()).load(photo.imageUrl).into(ivPhoto);
