@@ -18,17 +18,37 @@
         android:paddingRight="4dp"
         android:paddingBottom="4dp" />
 
-    <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/ivAvatar"
+    <FrameLayout
         android:layout_toLeftOf="@+id/tvCreatedAt"
         android:layout_toRightOf="@+id/ivAvatar"
-        android:gravity="center_vertical"
+        android:layout_alignTop="@id/ivAvatar"
+        android:layout_alignBottom="@id/ivAvatar"
         android:text="username"
         android:textColor="#0000a0"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+
+        <include
+            android:id="@+id/tvUsername"
+            layout="@layout/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
+    </FrameLayout>
+    <!--<TextView-->
+        <!--android:id="@+id/tvUsername"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_alignTop="@+id/ivAvatar"-->
+        <!--android:layout_toLeftOf="@+id/tvCreatedAt"-->
+        <!--android:layout_toRightOf="@+id/ivAvatar"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:text="username"-->
+        <!--android:textColor="#0000a0"-->
+        <!--/>-->
 
     <TextView
         android:id="@+id/tvCreatedAt"
@@ -61,22 +81,31 @@
         android:maxLines="1"
         android:text="5 likes"
         android:clickable="false" />
-    <TextView
-        android:id="@+id/tvCaption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <include layout="@layout/comment"
         android:layout_alignLeft="@id/tvLikes"
         android:layout_alignRight="@+id/tvLikes"
         android:layout_below="@id/tvLikes"
-        android:autoLink="web"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Caption"
-        android:clickable="false"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp" />
+        android:id="@+id/tvCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <!--<TextView-->
+        <!--android:id="@+id/tvCaption"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignLeft="@id/tvLikes"-->
+        <!--android:layout_alignRight="@+id/tvLikes"-->
+        <!--android:layout_below="@id/tvLikes"-->
+        <!--android:autoLink="web"-->
+        <!--android:ellipsize="end"-->
+        <!--android:maxLines="3"-->
+        <!--android:text="Caption"-->
+        <!--android:clickable="false"-->
+        <!--android:paddingLeft="8dp"-->
+        <!--android:paddingRight="8dp"-->
+        <!--android:paddingTop="4dp"-->
+        <!--android:paddingBottom="4dp" />-->
 
 
 </RelativeLayout>
