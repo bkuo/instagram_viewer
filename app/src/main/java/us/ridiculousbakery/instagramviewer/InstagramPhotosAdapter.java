@@ -1,6 +1,7 @@
 package us.ridiculousbakery.instagramviewer;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,13 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView tvLikes = (TextView)convertView.findViewById(R.id.tvLikes);
         ImageView ivPhoto = (ImageView)convertView.findViewById(R.id.ivPhoto);
         ImageView ivAvatar  = (ImageView)convertView.findViewById(R.id.ivAvatar);
+        TextView tvCreatedAt = (TextView)convertView.findViewById(R.id.tvCreatedAt);
         tvCaption.setUsernameComment(photo.username, photo.caption);
+        tvCreatedAt.setText(DateUtils.getRelativeTimeSpanString(photo.created_at*1000,
+                System.currentTimeMillis(),
+                DateUtils.MINUTE_IN_MILLIS,
+                DateUtils.FORMAT_ABBREV_RELATIVE
+        ));
 //        Spannable username = new SpannableString(photo.username);
 //        username.setSpan(new ForegroundColorSpan(Color.BLUE),0,photo.username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 //        if(photo.caption!=null){

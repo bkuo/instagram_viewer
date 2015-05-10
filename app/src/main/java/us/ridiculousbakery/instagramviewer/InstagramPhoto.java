@@ -32,7 +32,7 @@ public class InstagramPhoto {
     public int imageHeight;
     public int likesCount;
     public String avatarUrl;
-    public int created_at;
+    public long created_at;
 
     public static InstagramPhoto fromJSON(JSONObject photoJSON) {
         try {
