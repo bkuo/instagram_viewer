@@ -23,40 +23,47 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
         InstagramPhoto photo = getItem(position);
-        if (convertView==null){
-           convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
+            viewHolder.tvCaption = (CommentView) convertView.findViewById(R.id.tvCaption);
+            viewHolder.tvUsername = (CommentView) convertView.findViewById(R.id.tvUsername);
+            viewHolder.tvLikes = (TextView) convertView.findViewById(R.id.tvLikes);
+            viewHolder.ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
+            viewHolder.ivAvatar = (ImageView) convertView.findViewById(R.id.ivAvatar);
+            viewHolder.tvCreatedAt = (TextView) convertView.findViewById(R.id.tvCreatedAt);
+            convertView.setTag(viewHolder);
+
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        CommentView tvCaption = (CommentView)convertView.findViewById(R.id.tvCaption);
-        CommentView tvUsername = (CommentView)convertView.findViewById(R.id.tvUsername);
-        TextView tvLikes = (TextView)convertView.findViewById(R.id.tvLikes);
-        ImageView ivPhoto = (ImageView)convertView.findViewById(R.id.ivPhoto);
-        ImageView ivAvatar  = (ImageView)convertView.findViewById(R.id.ivAvatar);
-        TextView tvCreatedAt = (TextView)convertView.findViewById(R.id.tvCreatedAt);
-        tvCaption.setUsernameComment(photo.username, photo.caption);
-        tvCreatedAt.setText(
+
+        viewHolder.tvCaption.setUsernameComment(photo.username, photo.caption);
+        viewHolder.tvCreatedAt.setText(
                 ((String) DateUtils.getRelativeTimeSpanString(photo.created_at * 1000,
                         System.currentTimeMillis(),
                         DateUtils.MINUTE_IN_MILLIS,
                         DateUtils.FORMAT_ABBREV_RELATIVE
                 )).replaceFirst("(\\d+) (\\S).*", "$1$2")
         );
-//        Spannable username = new SpannableString(photo.username);
-//        username.setSpan(new ForegroundColorSpan(Color.BLUE),0,photo.username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        if(photo.caption!=null){
-//            tvCaption.setText(username);
-//            tvCaption.append(" "+photo.caption);
-//        }else{
-//            tvCaption.setText("");
-//        }
-//        tvCaption.setText( (photo.caption==null) ? "": photo.username + " "+ photo.caption);
-        tvUsername.setUsernameComment(photo.username, "");
-        tvLikes.setText(((Integer)photo.likesCount).toString()+" likes");
-        ivPhoto.setImageResource(0);
-        ivAvatar.setImageResource(0);
-        Picasso.with(getContext()).load(photo.imageUrl).into(ivPhoto);
-        Picasso.with(getContext()).load(photo.avatarUrl).into(ivAvatar);
-
+        viewHolder.tvUsername.setUsernameComment(photo.username, "");
+        viewHolder.tvLikes.setText(((Integer) photo.likesCount).toString() + " likes");
+        viewHolder.ivPhoto.setImageResource(0);
+        viewHolder.ivAvatar.setImageResource(0);
+        Picasso.with(getContext()).load(photo.imageUrl).into(viewHolder.ivPhoto);
+        Picasso.with(getContext()).load(photo.avatarUrl).into(viewHolder.ivAvatar);
         return convertView;
+    }
+
+    private class ViewHolder {
+        public InstagramPhoto item;
+        public CommentView tvCaption;
+        public CommentView tvUsername;
+        public TextView tvLikes;
+        public ImageView ivPhoto;
+        public ImageView ivAvatar;
+        public TextView tvCreatedAt;
     }
 }
